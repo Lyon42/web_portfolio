@@ -1,0 +1,131 @@
+body {
+    overflow-y: scroll;
+    --top-bar-height: 8vh !important;
+}
+
+#top_bar {
+    padding: 0 35px 0 35px;
+    width: calc(100% - 70px);
+    background-color: var(--surface);
+}
+
+.navigation_element {
+    display: flex;
+    width: fit-content;
+    margin-left: 25px;
+    cursor: pointer;
+    overflow: hidden;
+    user-select: none;
+    white-space: nowrap;
+}
+
+#name {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 0 !important;
+}
+
+#name a {
+    height: fit-content;
+}
+
+#name a div {
+    line-height: 4.25vh;
+    font-size: 4vh !important;
+    font-family: comfortaa;
+    font-weight: bold;
+    color: var(--on-surface);
+}
+
+#navigation_spacer {
+    margin-left: auto;
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.menu .navigation_element:nth-of-type(1) {
+    margin-left: 0;
+}
+
+.menu_collapsed, .menu_collapsed_full {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75vh;
+    top: calc(var(--top-bar-height) - 1.5vh);
+    right: 35px;
+    padding: 1.5vh;
+    border-radius: 3vh;
+    background-color: var(--surface);
+    filter: drop-shadow(1px 1px 10px var(--shadow));
+    transform-origin: top center;
+    transform: scaleY(0%);
+}
+
+.menu_collapsed_full {
+    top: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 0;
+    padding: 1.5vh 0 1.5vh 0;
+}
+
+.menu_collapsed .navigation_element {
+    margin-left: 0;
+}
+
+.menu_active {
+    transform: scaleY(100%) !important;
+}
+
+#menu_icon {
+    display: none;
+    width: 5vh;
+    height: 5vh;
+    fill: var(--on-surface);
+    cursor: pointer;
+}
+
+.selected {
+    cursor: none;
+    pointer-events: none;
+}
+
+.navigation_element_underline {
+    color: var(--on-surface);
+    line-height: 4vh !important;
+    font-size: 3vh !important;
+}
+
+.navigation_element_underline::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.35vh;
+    float: right;
+    background-color: var(--on-surface);
+    transform: translate3d(-100.5%, 0, 0);
+    transition: transform var(--animation-time-hover), background-color var(--animation-time-hover);
+}
+
+.navigation_element_underline:hover::after, .selected a .navigation_element_underline::after {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+#instagram, #instagram a div, #instagram_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4vh;
+    height: 4vh;
+    fill: var(--on-surface);
+}

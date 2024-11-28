@@ -1,0 +1,88 @@
+/* Logo */
+#centrally_logo {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 20px;
+    --logo-scale: 1.0;
+}
+
+#centrally_logo_icon {
+    height: calc(130px * var(--logo-scale));
+    filter: drop-shadow(3px 3px 2px rgba(0, 0, 0, 40%));
+}
+
+#centrally_logo_text {
+    height: fit-content;
+    line-height: calc(100px * var(--logo-scale));
+    padding-right: 20px;
+    font-family: open_sans, sans-serif;
+    font-size: calc(75px * var(--logo-scale));
+    font-weight: 800;
+    letter-spacing: -4px;
+    color: white;
+    background: linear-gradient(350deg, #77B3D4, #47566e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Dark Mode Switch */
+#dark_mode_switch {
+    position: relative;
+    margin-left: 2px;
+    --switch-time: var(--dark-mode-animation-time);
+}
+
+#dark_mode_switch_container {
+    scale: 95%;
+}
+
+#dark_mode_switch_track {
+    outline: none;
+    background-color: white;
+}
+
+#dark_mode_switch_input:checked ~ #dark_mode_switch_track {
+    background-color: black;
+}
+
+#dark_mode_switch_thumb {
+    background-color: white;
+    --base-state-layer-color: var(--on-surface);
+}
+
+#dark_mode_switch_input:checked ~ #dark_mode_switch_thumb {
+    background-color: black;
+}
+
+#dark_mode_switch_icon_off {
+    fill: black;
+}
+
+#dark_mode_switch_icon_on {
+    fill: white;
+}
+
+#dark_mode_switch .base_switch_label {
+    margin: 0 5px 0 5px;
+}
+
+#dark_mode_switch_label_off, #dark_mode_switch_label_on {
+    color: var(--on-surface);
+}
+
+#dark_mode_switch_input:not(:checked) ~ #dark_mode_switch_thumb {
+    filter: drop-shadow(0px 0px 5px black);
+}
+
+#dark_mode_switch_input:checked ~ #dark_mode_switch_thumb {
+    filter: drop-shadow(0px 0px 5px lightgray);
+}
+
+#dark_mode_switch_thumb .base_state_layer {
+    width: 35px;
+    height: 35px;
+}

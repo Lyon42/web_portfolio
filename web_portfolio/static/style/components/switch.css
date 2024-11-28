@@ -1,0 +1,121 @@
+.base_switch {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: fit-content;
+    --switch-time: 0.2s;
+    --press-time: 0.05s;
+}
+
+.base_switch_container {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 32px;
+}
+
+.base_switch_container input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.base_switch_track {
+    position: absolute;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: var(--surface-container-highest);
+    border-radius: var(--corner-full);
+    outline: var(--outline) solid 2px;
+    outline-offset: -2px;
+    transition: var(--dark-mode-animation-time) background-color, var(--dark-mode-animation-time) outline-color;
+}
+
+.base_switch_input:checked ~ .base_switch_track {
+    background-color: var(--primary);
+    outline-color: var(--primary);
+}
+
+.base_switch_thumb {
+    position: absolute;
+    display: grid !important;
+    justify-items: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    left: 8px;
+    top: 8px;
+    background-color: var(--outline);
+    background-size: contain;
+    background-position: center;
+    border-radius: var(--corner-full);
+    cursor: pointer;
+    transition-property: background-color, width, height, translate;
+    transition-duration: var(--dark-mode-animation-time);
+    overflow: visible;
+    --base-state-layer-color: var(--on-surface);
+}
+
+.base_switch_thumb_with_icon {
+    width: 24px;
+    height: 24px;
+    translate: -4px -4px;
+}
+
+.base_switch_input:checked ~ .base_switch_thumb {
+    translate: 15px -4px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--on-primary);
+    --base-state-layer-color: var(--primary);
+}
+
+.base_switch_input:not(:checked) ~ .base_switch_thumb_on_check  {
+    translate: -6px -6px;
+    width: 28px;
+    height: 28px;
+    transition: width var(--press-time), height var(--press-time), translate var(--press-time);
+}
+
+.base_switch_input:checked ~ .base_switch_thumb_on_uncheck {
+    translate: 13px -6px;
+    width: 28px;
+    height: 28px;
+    transition: width var(--press-time), height var(--press-time), translate var(--press-time);
+}
+
+.base_switch_thumb .base_state_layer {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    left: auto;
+    border-radius: var(--corner-full);
+}
+
+.base_switch_thumb svg {
+    width: 16px;
+    height: 16px;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    transition-property: opacity, fill;
+    transition-duration: var(--dark-mode-animation-time);
+}
+
+.base_switch_label {
+    margin-left: 10px;
+    grid-row-start: 1;
+    grid-column-start: 1;
+    transition: var(--dark-mode-animation-time) color, var(--switch-time) opacity;
+}
+
+.base_switch_icon_off, .base_switch_input:not(:checked) ~ .base_switch_thumb .base_switch_icon {
+    fill: var(--surface-container-highest);
+}
+
+.base_switch_icon_on, .base_switch_input:checked ~ .base_switch_thumb .base_switch_icon {
+    fill: var(--on-primary-container);
+}
+

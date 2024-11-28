@@ -1,0 +1,48 @@
+body {
+    --photo-spacing: 15px;
+    --max-photo-height: 700px;
+}
+
+#content {
+    height: fit-content;
+}
+
+#photo_container {
+    position: relative;
+}
+
+#photo_spacer {
+    position: relative;
+    width: 100%;
+    height: var(--photo-spacing);
+    min-height: var(--photo-spacing);
+}
+
+.photo_row {
+    display: none;
+    grid-gap: var(--photo-spacing);
+    width: calc(100% - 2 * var(--photo-spacing));
+    max-height: var(--max-photo-height);
+    margin: 0 var(--photo-spacing) var(--photo-spacing) var(--photo-spacing);
+    justify-content: center;
+}
+
+.photo_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.photo {
+    position: relative;
+    width: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    overflow: hidden;
+    transition: var(--animation-time-hover) transform;
+}
+
+.photo:hover {
+    transform: scale(102%);
+    cursor: pointer;
+}

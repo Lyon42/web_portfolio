@@ -1,0 +1,21 @@
+{% extends "./base/navigation_base.html" %}
+{% set page_name = "portfolio" %}
+
+{% block dependencies %}
+    {{ super() }}
+    {% do base_namespace.stylesheets_to_load.append("portfolio/portfolio") %}
+    {% do base_namespace.scripts_to_load.append("portfolio/portfolio") %}
+{% endblock %}
+
+{% block content %}
+    <div id="photo_container">
+        <div id="photo_spacer"></div>
+        {% for photo in photos %}
+            <div class="photo_row">
+                <div style="background-image: url('{{ url_for('static', filename=photo[0]|safe) }}');
+                            aspect-ratio: {{ photo[1] }}" class="photo">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

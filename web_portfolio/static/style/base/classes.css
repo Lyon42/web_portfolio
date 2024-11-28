@@ -1,0 +1,58 @@
+.base_link {
+    text-decoration: none;
+    color: var(--primary);
+    transition: var(--dark-mode-animation-time) color;
+}
+
+.base_link:hover {
+    text-decoration: underline;
+}
+
+.base_link:visited {
+    color: var(--primary);
+}
+
+.base_link:active {
+    filter: brightness(110%);
+}
+
+.hidden_link {
+    position: relative;
+    text-decoration: none;
+    width: fit-content;
+    height: fit-content;
+}
+
+.base_state_layer_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.base_state_layer {
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    background-color: var(--base-state-layer-color);
+    opacity: 0;
+    z-index: -1;
+    transition: var(--animation-time-hover) opacity, var(--dark-mode-animation-time) background-color;
+    pointer-events: none;
+    backface-visibility: hidden;
+}
+
+.base_state_layer_container:hover .base_state_layer, .base_state_layer_hovered {
+    opacity: var(--state-layer-opacity-hover);
+}
+
+.base_state_layer_container:active .base_state_layer, .base_state_layer_pressed {
+    opacity: var(--state-layer-opacity-press) !important;
+}
+
+.no-initial-animation {
+    transition: none !important;
+    animation: none !important;
+    display: none !important;
+}

@@ -1,0 +1,149 @@
+body:has(#left_side_bar:not(:is(.modal_navigation_drawer))) {
+    --left-bar-width: 360px;
+}
+
+#left_side_bar {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    width: var(--left-bar-width);
+    height: 100%;
+    background-color: var(--surface);
+    filter: drop-shadow(var(--elevation-level-0));
+    border-radius: 0 var(--corner-large) var(--corner-large) 0;
+    overflow: hidden;
+    transform: translateX(0px);
+    z-index: 3;
+    transition: background-color var(--dark-mode-animation-time), transform var(--navigation-drawer-extend-time);
+    --left-bar-width: 360px;
+}
+
+#left_side_bar:is(.modal_navigation_drawer):not(:is(.left_side_bar_extended)), #left_side_bar:is(.retractable_navigation_drawer):not(:is(.left_side_bar_extended))
+{
+    transform: translateX(-360px) !important;
+}
+
+#left_side_bar:is(.navigation_drawer), #left_side_bar:is(.retractable_navigation_drawer) {
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+
+#left_side_bar:is(.modal_navigation_drawer) {
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+body:has(.retractable_navigation_drawer):not(:has(.left_side_bar_extended)), body:has(.modal_navigation_drawer):not(:has(.left_side_bar_extended)) {
+    --left-bar-width: 0px !important;
+}
+
+#base_navigation_drawer_title {
+    position: relative;
+    height: 68px;
+}
+
+#base_navigation_drawer_content {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 68px - 16px);
+    margin: 0 0 16px 0;
+    overflow: scroll;
+}
+
+.base_navigation_drawer_button {
+    position: relative;
+    width: 336px;
+    height: 56px;
+    margin-left: 12px;
+    border-radius: var(--corner-full);
+    user-select: none;
+    --base-state-layer-color: var(--on-surface);
+}
+
+.base_navigation_drawer_button:not(.base_navigation_drawer_button_active) {
+    cursor: pointer;
+}
+
+.base_navigation_drawer_button_active {
+    background-color: var(--secondary-container);
+    --base-state-layer-color: var(--on-secondary-container);
+    transition: background-color var(--dark-mode-animation-time);
+}
+
+.base_navigation_drawer_button_content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.base_navigation_drawer_button_icon {
+    position: relative;
+    margin-left: 16px;
+    width: 24px;
+    height: 24px;
+    fill: var(--on-surface-variant);
+    transition: fill var(--dark-mode-animation-time);
+}
+
+.base_navigation_drawer_button_active .base_navigation_drawer_button_icon {
+    fill: var(--on-secondary-container);
+    transition: fill var(--dark-mode-animation-time);
+}
+
+.base_navigation_drawer_button_label {
+    position: absolute;
+    margin-left: 52px;
+    color: var(--on-surface-variant);
+    transition: color var(--dark-mode-animation-time);
+}
+
+.base_navigation_drawer_button_active .base_navigation_drawer_button_label {
+    color: var(--on-secondary-container);
+    transition: color var(--dark-mode-animation-time);
+}
+
+.base_navigation_drawer_button_badge {
+    position: absolute;
+    right: 0;
+    margin-right: 24px;
+    color: var(--on-surface-variant);
+    transition: color var(--dark-mode-animation-time);
+}
+
+.base_navigation_drawer_headline {
+    position: relative;
+    margin: 0 0 16px 28px;
+    color: var(--on-surface-variant);
+    transition: color var(--dark-mode-animation-time);
+}
+
+.base_navigation_drawer_seperator {
+    width: calc(100% - 56px);
+    margin: 16px 0 16px 28px;
+    border-top: 1px solid var(--on-surface-variant);
+    border-left: 1px solid var(--on-surface-variant);
+    border-right: 1px solid var(--on-surface-variant);
+    border-bottom: none;
+    transition: border var(--dark-mode-animation-time);
+}
+
+#modal_navigation_drawer_scrim {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 40%);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity var(--navigation-drawer-extend-time);
+}
+
+body:has(.left_side_bar_extended) #modal_navigation_drawer_scrim {
+    opacity: 100%;
+    pointer-events: all;
+}

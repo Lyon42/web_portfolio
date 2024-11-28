@@ -1,0 +1,159 @@
+/*Elevated Button*/
+.base_button_elevated {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--surface-container-low);
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    filter: drop-shadow(var(--elevation-level-1));
+    transition: var(--dark-mode-animation-time) background-color, var(--animation-time-hover) filter;
+    --base-state-layer-color: var(--primary);
+}
+
+.base_button_elevated:hover:not(:active) {
+    filter: drop-shadow(var(--elevation-level-2));
+}
+
+.base_button_elevated_icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin-left: 16px;
+    fill: var(--primary);
+    transition: var(--dark-mode-animation-time) fill;
+}
+
+.base_button_elevated_label {
+    position: relative;
+    margin: 0 24px 0 24px;
+    color: var(--primary);
+    transition: var(--dark-mode-animation-time) color;
+}
+
+.base_button_elevated:has(> .base_button_elevated_icon) .base_button_elevated_label {
+    margin-left: 8px;
+}
+
+/*Filled Button*/
+.base_button_filled {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--primary);
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    filter: drop-shadow(var(--elevation-level-0));
+    transition: var(--dark-mode-animation-time) background-color, var(--animation-time-hover) filter;
+    --base-state-layer-color: var(--on-primary);
+}
+
+.base_button_filled:hover:not(:active) {
+    filter: drop-shadow(var(--elevation-level-1));
+}
+
+.base_button_filled_icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin-left: 16px;
+    fill: var(--on-primary);
+    transition: var(--dark-mode-animation-time) fill;
+}
+
+.base_button_filled_label {
+    position: relative;
+    margin: 0 24px 0 24px;
+    color: var(--on-primary);
+    transition: var(--dark-mode-animation-time) color;
+}
+
+.base_button_filled:has(> .base_button_filled_icon) .base_button_filled_label {
+    margin-left: 8px;
+}
+
+/*Outlined Button*/
+.base_button_outlined {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    filter: drop-shadow(var(--elevation-level-0));
+    outline: 1px var(--outline) solid;
+    transition: var(--dark-mode-animation-time) background-color;
+    --base-state-layer-color: var(--primary);
+}
+
+.base_button_outlined_icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    margin-left: 16px;
+    fill: var(--primary);
+    transition: var(--dark-mode-animation-time) fill;
+}
+
+.base_button_outlined_label {
+    position: relative;
+    margin: 0 24px 0 24px;
+    color: var(--primary);
+    transition: var(--dark-mode-animation-time) color;
+}
+
+.base_button_outlined:has(> .base_button_outlined_icon) .base_button_outlined_label {
+    margin-left: 8px;
+}
+
+/*Floating Action Button*/
+.base_button_floating_action {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-container);
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    cursor: pointer;
+    user-select: none;
+    filter: drop-shadow(var(--elevation-level-3));
+    transition: var(--dark-mode-animation-time) background-color, var(--animation-time-hover) filter;
+    --base-state-layer-color: var(--on-primary-container);
+}
+
+.base_button_floating_action:hover:not(:active) {
+    filter: drop-shadow(var(--elevation-level-4));
+}
+
+.base_button_floating_action_icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    fill: var(--on-primary-container);
+    transition: var(--dark-mode-animation-time) fill;
+}
+
+.base_button_floating_action_small {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+}
+
+.base_button_floating_action_large {
+    width: 96px;
+    height: 96px;
+    border-radius: 28px;
+}
+
+.base_button_floating_action_large svg {
+    width: 36px;
+    height: 36px;
+}
