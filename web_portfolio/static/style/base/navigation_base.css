@@ -6,7 +6,17 @@ body {
 #top_bar {
     padding: 0 35px 0 35px;
     width: calc(100% - 70px);
+}
+
+#top_bar_back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
     background-color: var(--surface);
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 25%));
+    z-index: 0;
 }
 
 .navigation_element {
@@ -17,6 +27,7 @@ body {
     overflow: hidden;
     user-select: none;
     white-space: nowrap;
+    z-index: 1;
 }
 
 #name {
@@ -63,9 +74,10 @@ body {
     padding: 1.5vh;
     border-radius: 3vh;
     background-color: var(--surface);
-    filter: drop-shadow(1px 1px 10px var(--shadow));
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 25%));
     transform-origin: top center;
     transform: scaleY(0%);
+    z-index: 2;
 }
 
 .menu_collapsed_full {
@@ -86,10 +98,11 @@ body {
 
 #menu_icon {
     display: none;
-    width: 5vh;
-    height: 5vh;
+    min-width: 5vh;
+    min-height: 5vh;
     fill: var(--on-surface);
     cursor: pointer;
+    z-index: 1;
 }
 
 .selected {

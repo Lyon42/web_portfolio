@@ -2,3 +2,5 @@
 /web_portfolio/static/image/photo/
 /web_portfolio/build/
 /web_portfolio/static/image/thumbnail/
+/.venv/
+/lib/

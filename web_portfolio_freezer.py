@@ -1,9 +1,15 @@
 from web_portfolio import create_app
 from flask_frozen import Freezer
+import web_portfolio.default_config as config
 
+config.BUILD_MODE = True
+app = create_app(config)
+freezer = Freezer(app, True, False, False)
 
-app = create_app()
-freezer = Freezer(app)
+@freezer.register_generator
+def register_urls():
+    yield "/"
+    yield "/exhibition/"
 
 if __name__ == '__main__':
     freezer.freeze()

@@ -1,9 +1,9 @@
 import click
 from flask import Flask, g, current_app
-from flask.cli import with_appcontext
 from PIL import Image, ExifTags
 import sqlite3
-import os, shutil
+import os, shutil, json
+from typing import Optional, Any
 
 def get_db():
     if "db" not in g:
@@ -19,30 +19,48 @@ def close_db(e = None):
 
 def register(app: Flask):
     app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
+    app.cli.add_command(init_db)
+    app.cli.add_command(index_photos)
+    app.cli.add_command(clear_indexed_photos)
 
 @click.command("init-db")
-@with_appcontext
-def init_db_command():
-    click.echo("Clearing old data")
-    shutil.rmtree(current_app.static_folder + "\\image\\thumbnail\\")
-    click.echo("Successfully cleared old data")
-
-    click.echo("Creating the database")
-    create_db()
-    click.echo("Successfully created the database")
-
-    click.echo("Indexing Photos")
-    index_photos()
-    click.echo("Successfully indexed Photos")
-
-def create_db():
+def init_db():
+    click.echo("Creating Database")
     db = get_db()
+
+    if not len(db.execute("SELECT name FROM sqlite_master").fetchall()) == 0:
+        click.echo("Database could not be created, as it already exists and is not empty", err=True)
+        return
 
     with current_app.open_resource("schema.sql") as f:
         db.executescript(f.read().decode("utf8"))
 
-def index_photos(dir_to_search = None):
+    click.echo("Successfully created Database")
+
+@click.command("index-photos")
+@click.pass_context
+def index_photos(ctx):
+    ctx.invoke(clear_indexed_photos)
+
+    click.echo("Indexing Photos")
+    index_photos_in()
+    click.echo("Successfully Indexed Photos")
+
+@click.command("clear-photos")
+def clear_indexed_photos():
+    click.echo("Clearing indexed photos")
+    # Clear thumbnail folder
+    if os.path.exists(current_app.static_folder + "\\image\\thumbnail\\"):
+        shutil.rmtree(current_app.static_folder + "\\image\\thumbnail\\")
+
+    # Clear photos table
+    db = get_db()
+    db.execute("DELETE FROM photos")
+    db.commit()
+
+    click.echo("Successfully cleared indexed photos")
+
+def index_photos_in(dir_to_search = None):
     if dir_to_search is None:
         dir_to_search = "\\image\\photo\\"
 
@@ -56,7 +74,7 @@ def index_photos(dir_to_search = None):
 
         if os.path.isdir(current_app.static_folder + cur_element) and cur_element != "temp":
             # Search recursive in sub folder for images
-            index_photos(dir_to_search = cur_element + "\\")
+            index_photos_in(dir_to_search = cur_element + "\\")
         elif os.path.isfile(current_app.static_folder + cur_element):
             # Create directory if not existing
             if not was_dir_created:
@@ -86,3 +104,34 @@ def index_photos(dir_to_search = None):
             # Add image to photos database
             db.execute("INSERT INTO photos (path, thumbnail_path, aspect_ratio) VALUES (?,?,?)", (path, thumbnail_path, aspect_ratio))
             db.commit()
+
+    click.echo(f"\tIndexed Photos in {dir_to_search}")
+
+def add_exhibition(name: str, visible: bool = False, structure: str = None):
+    name = name.lower().replace(" ", "_")
+    structure = structure if structure is not None else "[]"
+
+    if not name.replace("_", "").isalpha():
+        raise Exception("Exhibition name must be alphanumeric!")
+
+    db = get_db()
+    db.execute("INSERT INTO exhibitions (name, visible, structure) VALUES (?,?,?)", (name, visible, structure))
+    db.commit()
+
+def get_exhibition_structure(name: str) -> Any:
+    db = get_db()
+    result = db.execute("SELECT structure FROM exhibitions WHERE name = ?", (name,))
+
+    if result.rowcount == 0:
+        raise Exception(f"Exhibition with name '{name}' does not exist!")
+    elif result.rowcount > 1:
+        raise Exception(f"Multiple exhibitions with name '{name}' exist!")
+
+    return json.loads(result.fetchone()[0])
+
+def set_exhibition_structure(name: str, structure: Optional[json] = None):
+    structure = json.dumps(structure) if structure is not None else "[]"
+
+    db = get_db()
+    db.execute("UPDATE exhibitions SET structure = ? WHERE name = ?", (structure, name))
+    db.commit()

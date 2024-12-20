@@ -1,4 +1,4 @@
-{% extends "./base/base.html" %}
+{% extends "base/base.html" %}
 
 {% block dependencies %}
     {% do base_namespace.stylesheets_to_load.append("base/navigation_base") %}
@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block top_bar %}
+    <div id="top_bar_back"></div>
     <div id="name" class="navigation_element">
         <a href="/" class="hidden_link">
             <div class="font_display_small">

@@ -1,35 +1,45 @@
 body {
-    --photo-spacing: 15px;
+    --photo-spacing: 20px;
     --max-photo-height: 700px;
 }
 
 #content {
-    height: fit-content;
+    align-items: center;
 }
 
 #photo_container {
     position: relative;
+    height: 100%;
 }
 
-#photo_spacer {
+#top_photo_spacer {
     position: relative;
     width: 100%;
     height: var(--photo-spacing);
     min-height: var(--photo-spacing);
 }
 
+#empty_exhibition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+    height: calc(100vh - var(--top-bar-height));
+    text-align: center;
+}
+
 .photo_row {
     display: none;
-    grid-gap: var(--photo-spacing);
     width: calc(100% - 2 * var(--photo-spacing));
     max-height: var(--max-photo-height);
     margin: 0 var(--photo-spacing) var(--photo-spacing) var(--photo-spacing);
     justify-content: center;
 }
 
-.photo_wrapper {
-    display: flex;
-    justify-content: center;
+.photo_element {
+
 }
 
 .photo {
@@ -45,4 +55,68 @@ body {
 .photo:hover {
     transform: scale(102%);
     cursor: pointer;
+}
+
+.photo_spacer {
+    display: flex;
+}
+
+.photo_text {
+    font-size: 2.25vh !important;
+    line-height: normal !important;
+    user-select: none;
+}
+
+#add_element_dialog_wrapper {
+    display: none;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--shadow);
+    z-index: 5;
+}
+
+#add_element_dialog {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    padding: 15px;
+    border-radius: 25px;
+    background-color: var(--surface);
+    filter: drop-shadow(var(--elevation-level-2));
+    z-index: 6;
+}
+
+#add_element_dialog_title {
+    font-weight: bold;
+}
+
+#add_element_dialog_settings {
+    display: grid;
+    grid-template-columns: fit-content(100%) 1fr;
+    gap: 5px;
+    align-items: center;
+    justify-items: end;
+    margin-top: 5px;
+}
+
+#test {
+    width: 300px;
+    height: 30px;
+    background-color: red;
+}
+
+#add_element_dialog_confirm_wrapper {
+    position: relative;
+    display: flex;
+    column-gap: 150px;
+    margin-top: auto;
 }

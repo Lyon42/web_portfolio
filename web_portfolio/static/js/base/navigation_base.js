@@ -1,4 +1,4 @@
-const CONTENT = document.getElementById("content")
+const DOC_ELEMENT = document.documentElement
 const NAVIGATION_ELEMENTS = document.getElementById("navigation_elements")
 const NAVIGATION_SPACER = document.getElementById("navigation_spacer")
 const MENU_ICON = document.getElementById("menu_icon")
@@ -20,7 +20,7 @@ function update_top_bar()
     NAVIGATION_ELEMENTS.classList.add("menu")
     MENU_ICON.style.display = ""
 
-    let aspect_ratio = CONTENT.clientWidth / CONTENT.clientHeight
+    let aspect_ratio = DOC_ELEMENT.clientWidth / DOC_ELEMENT.clientHeight
     let collapse = parseFloat(getComputedStyle(NAVIGATION_SPACER).marginLeft) < 25 || aspect_ratio < 1
     MENU_ICON.style.display = collapse ? "block" : ""
 

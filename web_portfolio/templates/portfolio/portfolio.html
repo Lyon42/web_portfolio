@@ -5,17 +5,62 @@
     {{ super() }}
     {% do base_namespace.stylesheets_to_load.append("portfolio/portfolio") %}
     {% do base_namespace.scripts_to_load.append("portfolio/portfolio") %}
+
+    {% if not config.BUILD_MODE %}
+        {{ components.load_component_dependencies(['button']) }}
+        {% do base_namespace.scripts_to_load.append("portfolio/portfolio_edit") %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
     <div id="photo_container">
-        <div id="photo_spacer"></div>
-        {% for photo in photos %}
-            <div class="photo_row">
-                <div style="background-image: url('{{ url_for('static', filename=photo[0]|safe) }}');
-                            aspect-ratio: {{ photo[1] }}" class="photo">
+        {% if structure|length == 0 %}
+            <div id="empty_exhibition">
+                Diese Ausstellung ist zur Zeit leider noch leer 🥲<br>
+                {% if not edit_mode %}
+                    In Kürze werden hier neue Bilder hinzugefügt 🥳
+                {% else %}
+                    {{ components.button_filled("add_element_button", "Element hinzufügen", icon = "plus", click_callback = "document.getElementById('add_element_dialog_wrapper').style.display='flex'") }}
+                {% endif %}
+            </div>
+        {% else %}
+            <div id="top_photo_spacer"></div>
+            {% for element in structure %}
+                <div class="photo_row">
+                    {% if element["type"] == "photo" %}
+                        <div style="background-image: url('{{ url_for('static', filename=element["thumbnail_path"]|safe) }}'); aspect-ratio: {{ element["aspect_ratio"][0] }}"
+                             class="photo_element photo" type="photo" aspect_ratio="{{ element["aspect_ratio"]|safe }}" line-break-behavior="{{ element['line_break_behavior'] }}">
+                            {{ edit_mode }}
+                        </div>
+                    {% elif element["type"] == "spacer" or element["type"] == "text" %}
+                        <div style="align-items: {{ element['vertical_align'] }}; justify-content: {{ element['horizontal_align'] }}; text-align: {{ element['text_align'] }}"
+                             class="photo_element photo_spacer" type="{{ element["type"] }}" aspect_ratio="{{ element["aspect_ratio"]|safe }}" line-break-behavior="{{ element['line_break_behavior'] }}">
+                            {% if element["type"] == "text" %}
+                                <span class="photo_text font_title_large">
+                                    {{ element["text"]|safe }}
+                                </span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    {% if edit_mode %}
+        <div id="add_element_dialog_wrapper">
+            <div id="add_element_dialog">
+                <span id="add_element_dialog_title" class="font_title_large">Add New Element</span>
+                <div id="add_element_dialog_settings">
+                    <span class="font_body_large">Element Typ</span><div id="test"></div>
+                    <span class="font_body_large">Zeilenumbruch</span><div id="test"></div>
+                    <span class="font_body_large">Position</span><div id="test"></div>
+                </div>
+                <div id="add_element_dialog_confirm_wrapper">
+                    {{ components.button_filled("add_element_dialog_cancel_button", "Abbrechen", click_callback = "document.getElementById('add_element_dialog_wrapper').style.display='none'") }}
+                    {{ components.button_filled("add_element_dialog_accept_button", "Hinzufügen") }}
                 </div>
             </div>
-        {% endfor %}
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}

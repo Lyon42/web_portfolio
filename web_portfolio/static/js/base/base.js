@@ -28,4 +28,4 @@ function removeNoInitialAnimationClass()
     }
 }
 
-window.baseFunctions = {updateDarkMode, toggleDarkMode}
+window.baseFunctions = {...window.baseFunctions, updateDarkMode, toggleDarkMode}

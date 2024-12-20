@@ -1,0 +1,24 @@
+[
+    {
+        "type": "photo",
+        "path": "<path-to-photo-relative-to-static>",
+        "order": 0,
+        "line_break_behavior": "<default=auto/break/no_break>"
+    },
+    {
+        "type": "spacer",
+        "order": 1,
+        "aspect_ratio": "<default=fill/[float]>",
+        "line_break_behavior": "<def=auto/break/no_break>"
+    },
+    {
+        "type": "text",
+        "aspect_ratio": "<[float]>",
+        "text": "Example Text",
+        "horizontal_align": "<left/center/right>",
+        "vertical_align": "<top/center/bottom>",
+        "text_align": "<left/center/right/justify>",
+        "order": 1,
+        "line_break_behavior": "<default=auto/break/no_break>"
+    }
+]

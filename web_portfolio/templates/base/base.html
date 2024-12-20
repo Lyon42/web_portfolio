@@ -1,5 +1,5 @@
 {% set base_namespace = namespace(stylesheets_to_load = [], scripts_to_load = [], loaded_component_dependencies = [], needed_component_dependencies = []) %}
-{% import "./base/components.html" as components with context %}
+{% import "base/components.html" as components with context %}
 
 {% block dependencies %}{% endblock %}
 
@@ -10,6 +10,10 @@
 
 {# Scripts #}
 {% do base_namespace.scripts_to_load.append("base/base") %}
+
+{% if not config.BUILD_MODE %}
+    {% do base_namespace.scripts_to_load.append("base/no_build") %}
+{% endif %}
 
 <!DOCTYPE html>
 <html lang="en">

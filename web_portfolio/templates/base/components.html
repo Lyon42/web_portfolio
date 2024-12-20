@@ -49,7 +49,7 @@
     </div>
 {% endmacro %}
 
-{% macro button_floating_action(button_id, icon, size="medium", click_callback = None, keys = None) %}
+    {% macro button_floating_action(button_id, icon, size="medium", click_callback = None, keys = None) %}
     {% do base_namespace.needed_component_dependencies.append('button') if 'button' not in base_namespace.needed_component_dependencies %}
     <div id="{{ button_id }}" class="base_button base_button_floating_action base_state_layer_container no-initial-animation {{ 'base_button_floating_action_small' if size == "small" }} {{ 'base_button_floating_action_large' if size == "large" }}" {{ 'onclick=' + click_callback if click_callback }} {{ ('keys="' + keys|string + '"')|safe if keys }}>
         <div class="base_state_layer"></div>
