@@ -1,6 +1,7 @@
 from web_portfolio import create_app
 from flask_frozen import Freezer
 import web_portfolio.default_config as config
+from shutil import rmtree
 
 config.BUILD_MODE = True
 app = create_app(config)

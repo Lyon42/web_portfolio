@@ -89,7 +89,7 @@ def index_photos_in(dir_to_search = None):
             rotation = 0
 
             # Invert aspect ratio if rotated by 90° or 270°
-            if image.getexif()[ExifTags.Base.Orientation] >= 5:
+            if ExifTags.Base.Orientation in image.getexif() and image.getexif()[ExifTags.Base.Orientation] >= 5:
                 aspect_ratio = 1 / aspect_ratio
                 rotation = 90 if 6 <= image.getexif()[ExifTags.Base.Orientation] <= 8 else -90
 

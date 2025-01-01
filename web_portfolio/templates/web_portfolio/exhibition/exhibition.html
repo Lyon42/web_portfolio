@@ -1,0 +1,7 @@
+{% extends "web_portfolio/base/navigation_base.html" %}
+{% set page_name = "exhibitions" %}
+
+{% block dependencies %}
+    {{ super() }}
+    {% do base_namespace.stylesheets_to_load.append(["web_portfolio", "exhibition/exhibition"]) %}
+{% endblock %}

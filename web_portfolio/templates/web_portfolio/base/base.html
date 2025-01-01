@@ -1,0 +1,8 @@
+{% extends "flask_material/base/base.html" %}
+
+{% block dependencies %}
+    {{ super() }}
+    {% if not config.BUILD_MODE %}
+        {% do base_namespace.scripts_to_load.append(["web_portfolio", "base/no_build"]) %}
+    {% endif %}
+{% endblock %}

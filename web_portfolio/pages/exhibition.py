@@ -13,7 +13,7 @@ bp = Blueprint('exhibition', __name__, url_prefix="/exhibition")
 
 @bp.route("/")
 def exhibition():
-    return render_template("exhibition/exhibition.html")
+    return render_template("web_portfolio/exhibition/exhibition.html")
 
 
 def exhibition_structure(name: str) -> List[Any]:

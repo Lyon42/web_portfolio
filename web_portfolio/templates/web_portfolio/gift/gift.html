@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geschenk</title>
+</head>
+<body>
+    <div id="gift_container">
+        <span id="open_me">Öffne mich!</span>
+        <div id="video_container">
+            <video autoplay muted id="gift_jump">
+              <source src="{{ url_for('web_portfolio.static', filename='image/gift/jump.mp4') }}" type="video/mp4">
+            </video>
+            <video autoplay muted id="gift_explode">
+              <source src="{{ url_for('web_portfolio.static', filename='image/gift/explode.mp4') }}" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <img id="portfolio_definition" src="{{ url_for('web_portfolio.static', filename='image/gift/portfolio.png') }}">
+
+    <div id="web_portfolio">
+        <span>Web Portfolio</span>
+        <img src="{{ url_for('web_portfolio.static', filename='image/gift/web_portfolio.png') }}">
+        <p>
+            Eine Webseite auf der du deine Fotos für dich und auch für andere präsentieren kannst.<br>
+            - Portfolio: Eine kleine Sammlung an Fotos die dich möglichst repräsentieren soll<br>
+            - Ausstellungen: Mehere Sammlungen an Fotos, die zusammengehören (z.B. Hamburg, Greetsiel, ...)<br>
+            - Kontakt: Hier kann man deine Kontaktdaten finden um dich zu beauftragen (natürlich nur wenn du das willst)<br><br>
+            Die gesammte Webseite kann sehr leicht angepasst werden (zumindest soll das in der Zukunft der Fall sein).
+            Das gesamte Aussehen (also Aufbau, Schrift, Farben, ...) kann ich natürlich noch auf deinen Wunsch anpassen.<br>
+            Wenn die Webseite zufriedenstellend ist, kann sie "eingefroren" werden und kostenlos hochgeladen bzw. gehostet werden.
+            Nach dem Hochladen kann man auf die Webseite zugreifen, aber nur mit dem komischen Link den du oben siehst.
+            Damit man die Webseite auch unter deinem Namen finden kann muss man eine Domain mieten, was ich auch für dich
+            bezahlen werde (Das sind die 18€ von denen ich geredet habe).<br>
+            Ich hoffe das hat schon einige meiner kryptischen Erklärung gelöst, aber frag gerne noch weitere Fragen.
+            Hoffe dir gefällt das Geschenk bzw. die Idee. Ist zwar keine richtige physische eigene Ausstellung, die du
+            dir ja Mal wünschst, aber vielleicht ist es ja ein guter Anfang.
+        </p>
+        <a href="/">Zum Portfolio</a>
+    </div>
+
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        #gift_container {
+            position: absolute;
+            width: fit-content;
+            height: fit-content;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #open_me {
+            font-family: sans-serif;
+            font-size: 4vw;
+            transition: opacity 0.5s;
+        }
+
+        #video_container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50vw;
+            aspect-ratio: 1;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #gift_jump, #gift_explode {
+            width: 110%;
+            aspect-ratio: 1;
+            margin: -7% 0 0 -5%;
+        }
+
+        #gift_explode {
+            display: none;
+        }
+
+        #portfolio_definition {
+            visibility: hidden;
+            position: absolute;
+            opacity: 0%;
+            width: 80vw;
+            transition: opacity 1s;
+            cursor: pointer;
+        }
+
+        #web_portfolio {
+            visibility: hidden;
+            width: calc(100vw - 50px);
+            padding: 0 25px 0 25px;
+            opacity: 0%;
+            transition: opacity 1s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: scroll;
+        }
+
+        #web_portfolio img {
+            width: 80vw;
+        }
+
+        #web_portfolio span, #web_portfolio a {
+            font-family: sans-serif;
+            font-size: 4vw;
+            margin-bottom: 25px;
+            width: fit-content;
+            text-wrap-mode: nowrap;
+        }
+
+        #web_portfolio p {
+            font-family: sans-serif;
+            font-size: 2vw;
+            margin-top: 25px;
+        }
+    </style>
+
+    <script>
+        const VIDEO_CONTAINER = document.getElementById("video_container")
+        const GIFT_JUMP = document.getElementById("gift_jump")
+        const GIFT_EXPLODE = document.getElementById("gift_explode")
+        let GIFT_CLICKED = false
+
+        VIDEO_CONTAINER.addEventListener("click", (e) =>
+        {
+            GIFT_CLICKED = true
+            document.getElementById("open_me").style.opacity = "0%"
+        })
+
+        GIFT_JUMP.addEventListener("ended", (e) =>
+        {
+            if(!GIFT_CLICKED)
+            {
+                GIFT_JUMP.play()
+            }
+            else
+            {
+                GIFT_JUMP.style.display = "none"
+                GIFT_EXPLODE.style.display = "block"
+                GIFT_EXPLODE.play()
+            }
+        })
+
+        GIFT_EXPLODE.addEventListener("ended", (e) =>
+        {
+            document.getElementById("gift_container").style.visibility = "hidden"
+            document.getElementById("portfolio_definition").style.visibility = "visible"
+            document.getElementById("portfolio_definition").style.opacity = "100%"
+        })
+
+        document.getElementById("portfolio_definition").addEventListener("click", () =>
+        {
+            document.getElementById("portfolio_definition").style.visibility = ""
+            document.getElementById("portfolio_definition").style.opacity = "0%"
+
+            document.getElementById("web_portfolio").style.visibility = "visible"
+            document.getElementById("web_portfolio").style.opacity = "100%"
+        })
+    </script>
+</body>
+</html>

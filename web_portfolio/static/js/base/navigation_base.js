@@ -9,6 +9,7 @@ window.addEventListener("resize", update_top_bar)
 document.addEventListener("scroll", hide_menu)
 
 MENU_ICON.addEventListener("mouseenter", update_menu)
+MENU_ICON.addEventListener("click", update_menu)
 MENU_ICON.addEventListener("mouseleave", update_menu)
 NAVIGATION_ELEMENTS.addEventListener("mouseenter", update_menu)
 NAVIGATION_ELEMENTS.addEventListener("mouseleave", update_menu)
@@ -38,7 +39,7 @@ function update_top_bar()
 
 function update_menu(e)
 {
-    if(e.type === "mouseenter")
+    if(e.type === "mouseenter" || e.type === "click")
     {
         NAVIGATION_ELEMENTS.classList.add("menu_active")
         NAVIGATION_ELEMENTS.style.transition = "var(--animation-time-hover) transform"

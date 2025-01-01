@@ -7,4 +7,4 @@ bp = Blueprint('portfolio', __name__, url_prefix="/")
 @bp.route("/edit/")
 def portfolio():
     structure = exhibition_structure("portfolio")
-    return render_template("portfolio/portfolio.html", structure = structure, edit_mode = "edit" in request.path)
+    return render_template("web_portfolio/portfolio/portfolio.html", structure = structure, edit_mode = "edit" in request.path)

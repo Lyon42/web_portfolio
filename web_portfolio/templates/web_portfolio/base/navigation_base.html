@@ -1,16 +1,19 @@
-{% extends "base/base.html" %}
+{% set title = config['PHOTOGRAPHER_NAME_TITLE'] %}
+{% set logo_location = config['LOGO_PATH'] %}
+{% extends "web_portfolio/base/base.html" %}
 
 {% block dependencies %}
-    {% do base_namespace.stylesheets_to_load.append("base/navigation_base") %}
-    {% do base_namespace.scripts_to_load.append("base/navigation_base") %}
+    {{ super() }}
+    {% do base_namespace.stylesheets_to_load.append(["web_portfolio", "base/navigation_base"]) %}
+    {% do base_namespace.scripts_to_load.append(["web_portfolio", "base/navigation_base"]) %}
 {% endblock %}
 
 {% block top_bar %}
     <div id="top_bar_back"></div>
     <div id="name" class="navigation_element">
-        <a href="/" class="hidden_link">
+        <a href="/web_portfolio/static" class="hidden_link">
             <div class="font_display_small">
-                ella paulussen
+                {{ config['PHOTOGRAPHER_NAME'] }}
             </div>
         </a>
     </div>
@@ -38,7 +41,7 @@
             </a>
         </div>
         <div id="instagram" class="navigation_element">
-            <a href="https://www.instagram.com/">
+            <a href="{{ config['INSTAGRAM_URL'] }}">
                 <div title="Instagram">
                     {{ components.icon_svg("instagram", id="instagram_icon") }}
                 </div>
